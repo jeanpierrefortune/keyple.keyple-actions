@@ -27,8 +27,6 @@ on:
         required: true
       SSH_PASSPHRASE:
         required: true
-      SONAR_TOKEN:
-        required: true
       ORG_GITHUB_BOT_TOKEN:
         required: true
 
@@ -108,10 +106,3 @@ jobs:
           project-name: ${{ steps.metadata.outputs.project-name }}
           project-version: ${{ github.event.release.tag_name }}
           github-bot-token: ${{ secrets.ORG_GITHUB_BOT_TOKEN }}
-
-      - name: Publish Code Quality to sonarcloud.io
-        env:
-          ORG_GRADLE_PROJECT_sonarToken: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          echo "Publishing code quality to sonarcloud.io..."
-          ./gradlew sonarqube --info --stacktrace
